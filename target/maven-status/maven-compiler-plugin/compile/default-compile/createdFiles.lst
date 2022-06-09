@@ -1,10 +1,12 @@
 br\edu\ifsul\controle\ControleCondominio.class
-br\edu\ifsul\controle\ControleLocatario.class
-br\edu\ifsul\dao\CondominioDAO.class
+br\edu\ifsul\dao\Ordem.class
 br\edu\ifsul\dao\DAOGenerico.class
 br\edu\ifsul\dao\RecursoDAO.class
-br\edu\ifsul\dao\PessoaDAO.class
 br\edu\ifsul\util\Util.class
+br\edu\ifsul\controle\ControleRecurso.class
+br\edu\ifsul\converters\ConverterOrdem.class
+br\edu\ifsul\controle\ControleLocatario.class
+br\edu\ifsul\dao\CondominioDAO.class
+br\edu\ifsul\dao\PessoaDAO.class
 br\edu\ifsul\controle\ControlePessoa.class
 br\edu\ifsul\dao\LocatarioDAO.class
-br\edu\ifsul\controle\ControleRecurso.class
