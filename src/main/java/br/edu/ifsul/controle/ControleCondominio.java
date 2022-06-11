@@ -1,7 +1,10 @@
 package br.edu.ifsul.controle;
 
 import br.edu.ifsul.dao.CondominioDAO;
+import br.edu.ifsul.dao.PessoaDAO;
 import br.edu.ifsul.modelo.Condominio;
+import br.edu.ifsul.modelo.Pessoa;
+import br.edu.ifsul.modelo.UnidadeCondominal;
 import br.edu.ifsul.util.Util;
 import java.io.Serializable;
 import javax.ejb.EJB;
@@ -16,8 +19,36 @@ public class ControleCondominio implements Serializable{
     private CondominioDAO<Condominio> dao;
     private Condominio objeto;
     
+    @EJB
+    private PessoaDAO<Pessoa> daoPessoa;
+    
+    private UnidadeCondominal unidadeCondominal;
+    private Boolean novaUnidadeCondominal;
+    
     public ControleCondominio() {
         
+    }
+    
+    public void novaUnidadeCondominal() {
+        unidadeCondominal = new UnidadeCondominal();
+        novaUnidadeCondominal = true;
+    }
+    
+    public void alterarUnidadeCondominal(int index) {
+        unidadeCondominal = objeto.getUnidadesCondominais().get(index);
+        novaUnidadeCondominal = false;
+    }
+    
+    public void salvarUnidadeCondominal() {
+        if (novaUnidadeCondominal) {
+            objeto.adicionarUnidadeCondominal(unidadeCondominal);
+        }
+        Util.mensagemInformacao("Unidade Condominal adicionada ou alterada com sucesso!");
+    }
+    
+    public void removerUnidadeCondominal(int index) {
+        objeto.removerUnidadeCondominal(index);
+        Util.mensagemInformacao("Unidade Condominal removida com sucesso!");
     }
     
     public String listar(){
@@ -73,5 +104,29 @@ public class ControleCondominio implements Serializable{
 
     public void setObjeto(Condominio objeto) {
         this.objeto = objeto;
+    }
+    
+    public PessoaDAO<Pessoa> getDaoPessoa() {
+        return daoPessoa;
+    }
+
+    public void setDaoPessoa(PessoaDAO<Pessoa> daoPessoa) {
+        this.daoPessoa = daoPessoa;
+    }
+
+    public UnidadeCondominal getUnidadeCondominal() {
+        return unidadeCondominal;
+    }
+
+    public void setUnidadeCondominal(UnidadeCondominal unidadeCondominal) {
+        this.unidadeCondominal = unidadeCondominal;
+    }
+
+    public Boolean getNovaUnidadeCondominal() {
+        return novaUnidadeCondominal;
+    }
+
+    public void setNovaUnidadeCondominal(Boolean novaUnidadeCondominal) {
+        this.novaUnidadeCondominal = novaUnidadeCondominal;
     }
 }

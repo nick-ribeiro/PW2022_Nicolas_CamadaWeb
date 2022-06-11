@@ -17,4 +17,10 @@ public class CondominioDAO<TIPO> extends DAOGenerico<Condominio> implements Seri
         converterOrdem = new ConverterOrdem();
         converterOrdem.setListaOrdem(listaOrdem);
     }
+    
+    public Condominio getObjetcByID(Object id) throws Exception {
+        Condominio obj = em.find(Condominio.class, id);
+        obj.getUnidadesCondominais().size();
+        return obj;
+    }
 }

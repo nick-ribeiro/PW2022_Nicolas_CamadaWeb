@@ -17,18 +17,35 @@
                             icon="pi pi-home"/>
                 <p:submenu label="Cadastros">
                     <p:column>
-                        <p:submenu label="Básicos">
-                            <p:menuitem action="#{controleCondominio.listar()}"
-                                        value="Manutenção de Condominios"
+                        <p:submenu label="Aluguel">
+                            <p:menuitem action="#{controleAluguel.listar()}"
+                                        value="Manutenção de Alugueis"
                                         ajax="false"/>
+                        </p:submenu>
+                    </p:column>
+                    <p:column>
+                        <p:submenu label="Básicos">
                             <p:menuitem action="#{controleLocatario.listar()}"
                                         value="Manutenção de Locatarios"
+                                        ajax="false"/>
+                            <p:menuitem action="#{controleMensalidades.listar()}"
+                                        value="Manutenção de Mensalidades"
                                         ajax="false"/>
                             <p:menuitem action="#{controlePessoa.listar()}"
                                         value="Manutenção de Pessoas"
                                         ajax="false"/>
                             <p:menuitem action="#{controleRecurso.listar()}"
                                         value="Manutenção de Recursos"
+                                        ajax="false"/>
+                            <p:menuitem action="#{controleUnidadeCondominal.listar()}"
+                                        value="Manutenção de Unidades Condominais"
+                                        ajax="false"/>
+                        </p:submenu>
+                    </p:column>
+                    <p:column>
+                        <p:submenu label="Condominio">
+                            <p:menuitem action="#{controleCondominio.listar()}"
+                                        value="Manutenção de Condominios"
                                         ajax="false"/>
                         </p:submenu>
                     </p:column>
