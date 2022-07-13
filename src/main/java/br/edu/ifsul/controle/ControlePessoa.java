@@ -3,7 +3,11 @@ package br.edu.ifsul.controle;
 import br.edu.ifsul.dao.PessoaDAO;
 import br.edu.ifsul.modelo.Pessoa;
 import br.edu.ifsul.util.Util;
+import br.edu.ifsul.util.UtilRelatorios;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -19,6 +23,23 @@ public class ControlePessoa implements Serializable{
     public ControlePessoa() {
         
     }
+    
+    public void imprimePessoas(){
+        HashMap parametros = new HashMap();
+        UtilRelatorios.imprimeRelatorio("relatoriosPessoa", parametros, dao.getListaTodos());
+    }
+    
+    public void imprimePessoa(Object id){
+        try {
+            objeto = dao.getObjetcByID(id);
+            List<Pessoa> lista = new ArrayList<>();
+            lista.add(objeto);
+            HashMap parametros = new HashMap();
+            UtilRelatorios.imprimeRelatorio("relatoriosPessoa", parametros,lista);            
+        } catch (Exception e){
+            Util.mensagemInformacao("Erro ao imprimir: " + Util.getMensagemErro(e));
+        }
+    } 
     
     public String listar() {
         return "/privado/pessoa/listar?faces-redirect=true";
