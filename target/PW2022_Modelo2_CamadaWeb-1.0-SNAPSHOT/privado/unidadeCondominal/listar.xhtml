@@ -22,7 +22,7 @@
                                  action="#{controleUnidadeCondominal.imprimeUnidadesCondominais()}"
                                  ajax="false"
                                  onclick="this.form.target = '_blank';"
-                                 rendered="#{p:ifGranted('SINDICO')}"/>
+                                 rendered="#{p:ifGranted('ZELADOR')}"/>
                 
                                 <div align="center">
                     <p:panelGrid columns="11">
@@ -101,7 +101,7 @@
                                             action="#{controleUnidadeCondominal.imprimeUnidadeCondominal(obj.id)}"
                                             ajax="false"
                                             onclick="this.form.target = '_blank';"
-                                            rendered="#{p:ifGranted('SINDICO')}"/>
+                                            rendered="#{p:ifGranted('ZELADOR')}"/>
                         </div>
                     </p:column>
                 </p:dataTable>
