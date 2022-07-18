@@ -22,7 +22,7 @@ public class ConverterPessoa implements Serializable, Converter{
         if (string == null || string.equals("Selecione um registro")){
             return null;
         }
-        return em.find(Pessoa.class, Integer.parseInt(string));
+        return em.find(Pessoa.class, string);
     }
 
     @Override
@@ -31,6 +31,6 @@ public class ConverterPessoa implements Serializable, Converter{
             return null;
         }
         Pessoa obj = (Pessoa) t;
-        return obj.getId().toString();
+        return obj.getCpf();
     }
 }

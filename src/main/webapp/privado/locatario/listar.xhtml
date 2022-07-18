@@ -16,7 +16,8 @@
                                  icon="pi pi-plus"
                                  update="formEdicao"
                                  process="@this"
-                                 oncomplete="PF('dlg').show();"/>
+                                 oncomplete="PF('dlg').show();"
+                                 rendered="#{p:ifGranted('SINDICO')}"/>
                 <div align="center">
                     <p:panelGrid columns="11">
                         <p:outputLabel value="Ordem:"/>
@@ -58,14 +59,11 @@
                     <f:facet name="footer">
                         <p:outputLabel value="#{controleLocatario.dao.mensagemNavegacao}"/>
                     </f:facet>
-                    <p:column headerText="ID">
-                        <p:outputLabel value="#{obj.id}"/>
+                    <p:column headerText="CPF">
+                        <p:outputLabel value="#{obj.cpf}"/>
                     </p:column>
                     <p:column headerText="Nome">
                         <p:outputLabel value="#{obj.nome}"/>
-                    </p:column>
-                    <p:column headerText="CPF">
-                        <p:outputLabel value="#{obj.cpf}"/>
                     </p:column>
                     <p:column headerText="Telefone">
                         <p:outputLabel value="#{obj.telefone}"/>
@@ -84,17 +82,19 @@
                     </p:column>  
                     <p:column headerText="Ações">
                         <div align="center">
-                            <p:commandButton actionListener="#{controleLocatario.alterar(obj.id)}"
+                            <p:commandButton actionListener="#{controleLocatario.alterar(obj.cpf)}"
                                              icon="pi pi-pencil"
                                              title="Editar"
                                              update="formEdicao"
                                              process="@this"
-                                             oncomplete="PF('dlg').show();"/>
-                            <p:commandButton actionListener="#{controleLocatario.remover(obj.id)}"
+                                             oncomplete="PF('dlg').show();"
+                                             rendered="#{p:ifGranted('SINDICO')}"/>
+                            <p:commandButton actionListener="#{controleLocatario.remover(obj.cpf)}"
                                              icon="pi pi-trash"
                                              update="@form"
                                              process="@this"
-                                             onclick="if (!confirm('Confirma a exclusão')) return false"/>
+                                             onclick="if (!confirm('Confirma a exclusão')) return false"
+                                             rendered="#{p:ifGranted('SINDICO')}"/>
                         </div>
                     </p:column>
                 </p:dataTable>
@@ -106,17 +106,13 @@
                     <p:growl/>
                     <div aling="center">
                         <p:panelGrid columns="2">
-                            <p:outputLabel value="ID"/>
-                            <p:inputText validator="#{controleLocatario.objeto.id}"
-                                         size="5" readonly="true"/>
+                            <p:outputLabel value="CPF" for="txtCPF"/>
+                            <p:inputText id="txtCPF" value="#{controleLocatario.objeto.cpf}"
+                                         size="14" maxlength="14"/>
                             <p:outputLabel value="Nome" for="txtNome"/>
                             <p:inputText id="txtNome" value="#{controleLocatario.objeto.nome}"
                                          size="40" maxlength="40"
-                                         placeholder="Obrigatório"/>
-                            <p:outputLabel value="CPF" for="txtCPF"/>
-                            <p:inputText id="txtCPF" value="#{controleLocatario.objeto.cpf}"
-                                         size="14" maxlength="14"
-                                         placeholder="Obrigatório"/>
+                                         placeholder="Obrigatório"/>        
                             <p:outputLabel value="Telefone" for="txtTelefone"/>
                             <p:inputText id="txtTelefone" value="#{controleLocatario.objeto.telefone}"
                                          size="11" maxlength="11"
@@ -134,6 +130,11 @@
                             <p:outputLabel value="TelefoneTrabalho" for="txtTelefoneTrabalho"/>
                             <p:inputText id="txtTelefoneTrabalho" value="#{controleLocatario.objeto.telefoneTrabalho}"
                                          size="14" maxlength="14" placeholder="Obrigatório"/>
+                            <p:outputLabel value="Senha" for="txtSenha"/>
+                            <p:password id="txtSenha" value="#{controleLocatario.objeto.senha}"
+                                        redisplay="true" size="20" maxlength="20"
+                                        feedback="true" 
+                                        weakLabel="Senha Fraca" strongLabel="Senha Forte"/>
                         </p:panelGrid>
                     </div>
                     <p:panel>

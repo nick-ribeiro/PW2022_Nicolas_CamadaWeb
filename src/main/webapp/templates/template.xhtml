@@ -15,9 +15,11 @@
                 <p:menuitem value="Home"
                             url="#{facesContext.externalContext.requestContextPath}/index.xhtml"
                             icon="pi pi-home"/>
-                <p:submenu label="Cadastros">
+                <p:submenu label="Cadastros"
+                           rendered="#{controleLogin.pessoaAutenticada != null}">
                     <p:column>
-                        <p:submenu label="Aluguel">
+                        <p:submenu label="Aluguel"                                   
+                                   rendered="#{controleLogin.pessoaAutenticada != null}">
                             <p:menuitem action="#{controleAluguel.listar()}"
                                         value="Manutenção de Alugueis"
                                         ajax="false"/>
@@ -43,7 +45,8 @@
                         </p:submenu>
                     </p:column>
                     <p:column>
-                        <p:submenu label="Condominio">
+                        <p:submenu label="Condominio"
+                                   rendered="#{controleLogin.pessoaAutenticada != null}">
                             <p:menuitem action="#{controleCondominio.listar()}"
                                         value="Manutenção de Condominios"
                                         ajax="false"/>
@@ -51,10 +54,32 @@
                     </p:column>
                 </p:submenu>
                 
-                <p:submenu label="Relatórios">
+                <p:submenu label="Login: #{controleLogin.pessoaAutenticada != null ? controleLogin.pessoaAutenticada.cpf : ''}" 
+                           icon="pi pi-lock">
+                    <p:column>
+                        <p:submenu label="Efetuar login"
+                                   rendered="#{controleLogin.pessoaAutenticada == null}">
+                            <p:menuitem action="#{controleLogin.irPaginaLogin()}"
+                                        value="Login" 
+                                        icon="pi pi-user"
+                                        ajax="false"/>
+                        </p:submenu>
+                        
+                        <p:submenu label="Efetuar logout"
+                                   rendered="#{controleLogin.pessoaAutenticada != null}">
+                            <p:menuitem action="#{controleLogin.efetuarLogout()}"
+                                        value="Logout" 
+                                        icon="pi pi-power-off"
+                                        ajax="false"/>
+                        </p:submenu>
+                    </p:column>
+                </p:submenu>
+                
+                <p:submenu label="Relatórios"
+                           rendered="#{controleLogin.pessoaAutenticada != null}">
                     <p:column>
                         <p:submenu label="Básicos">
-                            <p:menuitem action="#{controlePessoa.imprimePessoas()}"
+                            <p:menuitem action="#{controleUnidadeCondominal.imprimeUnidadesCondominais()}"
                                         value="Imprimir"
                                         icon="pi pi-print"
                                         ajax="false"

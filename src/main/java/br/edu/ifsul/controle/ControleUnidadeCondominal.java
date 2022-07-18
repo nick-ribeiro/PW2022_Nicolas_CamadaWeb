@@ -7,7 +7,11 @@ import br.edu.ifsul.modelo.Condominio;
 import br.edu.ifsul.modelo.Pessoa;
 import br.edu.ifsul.modelo.UnidadeCondominal;
 import br.edu.ifsul.util.Util;
+import br.edu.ifsul.util.UtilRelatorios;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -29,6 +33,23 @@ public class ControleUnidadeCondominal implements Serializable{
     public ControleUnidadeCondominal() {
         
     }
+    
+    public void imprimeUnidadesCondominais(){
+        HashMap parametros = new HashMap();
+        UtilRelatorios.imprimeRelatorio("relatorioUnidadeCondominal", parametros, dao.getListaTodos());
+    }
+    
+    public void imprimeUnidadeCondominal(Object id){
+        try {
+            objeto = dao.getObjetcByID(id);
+            List<UnidadeCondominal> lista = new ArrayList<>();
+            lista.add(objeto);
+            HashMap parametros = new HashMap();
+            UtilRelatorios.imprimeRelatorio("relatorioUnidadeCondominal", parametros,lista);            
+        } catch (Exception e){
+            Util.mensagemInformacao("Erro ao imprimir: " + Util.getMensagemErro(e));
+        }
+    } 
     
     public String listar() {
         return "/privado/unidadeCondominal/listar?faces-redirect=true";

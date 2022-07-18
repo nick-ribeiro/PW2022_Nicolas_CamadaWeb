@@ -22,7 +22,7 @@ public class ConverterLocatario implements Serializable, Converter{
         if (string == null || string.equals("Selecione um registro")){
             return null;
         }
-        return em.find(Locatario.class, Integer.parseInt(string));
+        return em.find(Locatario.class, string);
     }
 
     @Override
@@ -31,6 +31,6 @@ public class ConverterLocatario implements Serializable, Converter{
             return null;
         }
         Locatario obj = (Locatario) t;
-        return obj.getId().toString();
+        return obj.getCpf();
     }
 }

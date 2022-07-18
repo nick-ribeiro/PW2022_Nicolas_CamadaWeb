@@ -15,7 +15,14 @@
                                  icon="pi pi-plus"
                                  update="formEdicao"
                                  process="@this"
-                                 oncomplete="PF('dlg').show();"/>
+                                 oncomplete="PF('dlg').show();"
+                                 rendered="#{p:ifGranted('SINDICO')}"/>
+                <p:commandButton value="Imprimir"
+                                 icon="pi pi-print"
+                                 action="#{controleUnidadeCondominal.imprimeUnidadesCondominais()}"
+                                 ajax="false"
+                                 onclick="this.form.target = '_blank';"
+                                 rendered="#{p:ifGranted('SINDICO')}"/>
                 
                                 <div align="center">
                     <p:panelGrid columns="11">
@@ -81,12 +88,20 @@
                                              title="Editar"
                                              update="formEdicao"
                                              process="@this"
-                                             oncomplete="PF('dlg').show();"/>
+                                             oncomplete="PF('dlg').show();"
+                                             rendered="#{p:ifGranted('SINDICO')}"/>
                             <p:commandButton actionListener="#{controleUnidadeCondominal.excluir(obj.id)}"
                                              icon="pi pi-trash"
                                              update="@form"
                                              process="@this"
-                                             onclick="if (!confirm('Confirma a exclusão')) return false"/>
+                                             onclick="if (!confirm('Confirma a exclusão')) return false"
+                                             rendered="#{p:ifGranted('SINDICO')}"/>
+                            <p:commandButton title="Imprimir"
+                                            icon="pi pi-print"
+                                            action="#{controleUnidadeCondominal.imprimeUnidadeCondominal(obj.id)}"
+                                            ajax="false"
+                                            onclick="this.form.target = '_blank';"
+                                            rendered="#{p:ifGranted('SINDICO')}"/>
                         </div>
                     </p:column>
                 </p:dataTable>

@@ -16,12 +16,8 @@
                                  icon="pi pi-plus"
                                  update="formEdicao"
                                  process="@this"
-                                 oncomplete="PF('dlg').show();"/>
-                <p:commandButton value="Imprimir"
-                                 icon="pi pi-print"
-                                 action="#{controlePessoa.imprimePessoas()}"
-                                 ajax="false"
-                                 onclick="this.form.target = '_blank';"/>
+                                 oncomplete="PF('dlg').show();"
+                                 rendered="#{p:ifGranted('SINDICO')}"/>
                 
                 <div align="center">
                     <p:panelGrid columns="11">
@@ -64,14 +60,11 @@
                     <f:facet name="footer">
                         <p:outputLabel value="#{controlePessoa.dao.mensagemNavegacao}"/>
                     </f:facet>
-                    <p:column headerText="ID">
-                        <p:outputLabel value="#{obj.id}"/>
+                    <p:column headerText="CPF">
+                        <p:outputLabel value="#{obj.cpf}"/>
                     </p:column>
                     <p:column headerText="Nome">
                         <p:outputLabel value="#{obj.nome}"/>
-                    </p:column>
-                    <p:column headerText="CPF">
-                        <p:outputLabel value="#{obj.cpf}"/>
                     </p:column>
                     <p:column headerText="Telefone">
                         <p:outputLabel value="#{obj.telefone}"/>
@@ -81,22 +74,19 @@
                     </p:column>
                     <p:column headerText="Ações">
                         <div align="center">
-                            <p:commandButton actionListener="#{controlePessoa.alterar(obj.id)}"
+                            <p:commandButton actionListener="#{controlePessoa.alterar(obj.cpf)}"
                                              icon="pi pi-pencil"
                                              title="Editar"
                                              update="formEdicao"
                                              process="@this"
-                                             oncomplete="PF('dlg').show();"/>
-                            <p:commandButton actionListener="#{controlePessoa.remover(obj.id)}"
+                                             oncomplete="PF('dlg').show();"
+                                             rendered="#{p:ifGranted('SINDICO')}"/>
+                            <p:commandButton actionListener="#{controlePessoa.remover(obj.cpf)}"
                                              icon="pi pi-trash"
                                              update="@form"
                                              process="@this"
-                                             onclick="if (!confirm('Confirma a exclusão')) return false"/>
-                            <p:commandButton title="Imprimir"
-                                            icon="pi pi-print"
-                                            action="#{controlePessoa.imprimePessoa(obj.id)}"
-                                            ajax="false"
-                                            onclick="this.form.target = '_blank';"/>
+                                             onclick="if (!confirm('Confirma a exclusão')) return false"
+                                             rendered="#{p:ifGranted('SINDICO')}"/>
                         </div>
                     </p:column>
                 </p:dataTable>
@@ -107,26 +97,31 @@
                 <h:form id="formEdicao" prependId="false">
                     <p:growl/>
                     <div aling="center">
-                        <p:panelGrid columns="2">
-                            <p:outputLabel value="ID"/>
-                            <p:inputText validator="#{controlePessoa.objeto.id}"
-                                         size="5" readonly="true"/>
-                            <p:outputLabel value="Nome" for="txtNome"/>
-                            <p:inputText id="txtNome" value="#{controlePessoa.objeto.nome}"
+                        <p:tabView id="tab" activeIndex="#{controlePessoa.abaAtiva}">
+                            <p:tab title="Dados principais">
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="CPF" for="txtCPF"/>
+                                    <p:inputText id="txtCPF" value="#{controlePessoa.objeto.cpf}"
+                                         size="14" maxlength="14"/>
+                                    <p:outputLabel value="Nome" for="txtNome"/>
+                                    <p:inputText id="txtNome" value="#{controlePessoa.objeto.nome}"
                                          size="40" maxlength="40"
                                          placeholder="Obrigatório"/>
-                            <p:outputLabel value="CPF" for="txtCPF"/>
-                            <p:inputText id="txtCPF" value="#{controlePessoa.objeto.cpf}"
-                                         size="14" maxlength="14"
-                                         placeholder="Obrigatório"/>
-                            <p:outputLabel value="Telefone" for="txtTelefone"/>
-                            <p:inputText id="txtTelefone" value="#{controlePessoa.objeto.telefone}"
+                                    <p:outputLabel value="Telefone" for="txtTelefone"/>
+                                    <p:inputText id="txtTelefone" value="#{controlePessoa.objeto.telefone}"
                                          size="11" maxlength="11"
                                          placeholder="Obrigatório"/>
-                            <p:outputLabel value="Email" for="txtEmail"/>
-                            <p:inputText id="txtEmail" value="#{controlePessoa.objeto.email}"
+                                    <p:outputLabel value="Email" for="txtEmail"/>
+                                    <p:inputText id="txtEmail" value="#{controlePessoa.objeto.email}"
                                          size="100"/>
-                        </p:panelGrid>
+                                    <p:outputLabel value="Senha" for="txtSenha"/>
+                                    <p:password id="txtSenha" value="#{controlePessoa.objeto.senha}"
+                                                redisplay="true" size="20" maxlength="20"
+                                                feedback="true" 
+                                                weakLabel="Senha Fraca" strongLabel="Senha Forte"/>
+                                </p:panelGrid>
+                            </p:tab>
+                        </p:tabView>
                     </div>
                     <p:panel>
                         <div aling="center">
